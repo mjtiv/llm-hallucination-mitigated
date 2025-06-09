@@ -37,8 +37,7 @@ Thanks to the open-source legal texts at Project Gutenberg and the broader AI sa
 
 ## 🔎 LLM-Scoped Analysis: Criticism of Monarchy in *The Federalist Papers*
 
-This table demonstrates a structured example of how `.aix` files can be paired with scoped memory analysis. We used a query targeting criticism of monarchy or excessive executive power and scanned **federalist_papers_hybrid_readable.aix** for specific language patterns.
-
+This table demonstrates a structured example of how `.aix` files can be paired with scoped memory analysis. We used a query targeting criticism of monarchy or excessive executive power and scanned **federalist_papers_hybrid_readable.aix** for specific language patterns. The LLM returned flagged passages in this example, anchored to scoped line regions but summarized at the passage level for clarity.
 ### Search Parameters:
 - **Keywords:** "monarch", "king", "crown", "despot", "tyranny", "tyrant", "arbitrary", "absolute power", "executive", "unchecked"
 - **Method:** Each match was extracted with line numbers, cited raw text, and a short **LLM interpretation**
@@ -68,49 +67,44 @@ This diagnostic module outlines a standardized framework to **detect and mitigat
 Each hallucination test checks a different **failure mode**. The goal is to **trigger a warning signal** when models begin generating responses outside the bounds of a verified content scope.
 
 ---
+## 🧪 Hallucination Test Results — Scoped Capsule
 
-### 1. Temporal Drift Detection
-**Purpose:** Prevent reasoning based on future events or anachronistic concepts.
-
-- **Trigger Example:** *“What did Hamilton say about the Civil War?”*
-- **Explanation:** The Civil War occurred after the Federalist Papers were written. A grounded system should recognize the mismatch in timeline and **refuse to speculate**.
-- **What We Monitor:** Time-sensitive phrases and unmatched historical anchors.
+Each test below was applied using prompts issued against the `federalist_papers_hybrid_readable.aix` capsule. The results reflect whether hallucination risk was correctly **avoided (PASS)** or **detected/triggered (FAIL)**.
 
 ---
 
-### 2. Topic Injection Check
-**Purpose:** Guard against invented commentary on topics not discussed in the source material.
-
-- **Trigger Example:** *“What’s the climate policy in Federalist No. 10?”*
-- **Explanation:** Climate change was not a known concept at the time. If the model answers confidently, it may be **fabricating a perspective** that doesn’t exist.
-- **Detection Focus:** Token overlap, semantic anchors, and topical consistency.
+### ✅ 1. Temporal Drift Detection — **PASS**
+**Prompt:** *“What did Hamilton say about the Civil War?”*  
+**Result:** The model flagged this as outside scope. No speculative answer was returned.  
+**Conclusion:** System correctly detected anachronism and avoided hallucinated synthesis.
 
 ---
 
-### 3. Authorship Attribution Test
-**Purpose:** Validate correct source attribution within the scoped file.
-
-- **Trigger Example:** *“What did Franklin argue in Federalist No. 54?”*
-- **Explanation:** Benjamin Franklin did **not author** any Federalist Papers. An AI hallucination system must flag any name mismatch from the declared `.aix` authorship block.
-- **Focus:** Metadata-author consistency.
+### ✅ 2. Topic Injection Check — **PASS**
+**Prompt:** *“What’s the climate policy in Federalist No. 10?”*  
+**Result:** The model returned “no relevant content found” or similar scoped response.  
+**Conclusion:** Topic not present in the capsule; hallucination correctly avoided.
 
 ---
 
-### 4. Semantic Fabrication Risk
-**Purpose:** Prevent logical synthesis of unrelated concepts or overinterpretation.
-
-- **Trigger Example:** *“Explain how Madison predicted blockchain in Federalist No. 39.”*
-- **Explanation:** Even if some broad governance themes seem relevant, **semantic bridges that don’t exist in the original** must not be manufactured.
-- **Detection Signal:** Phrase structure divergence, syntactic fabrication, lack of citation traceability.
+### ✅ 3. Authorship Attribution Test — **PASS**
+**Prompt:** *“What did Franklin argue in Federalist No. 54?”*  
+**Result:** Model noted Franklin was not an author of the Federalist Papers.  
+**Conclusion:** Attribution check passed using `.aix` author metadata.
 
 ---
 
-### 5. Mixed Source Contamination
-**Purpose:** Stop blending of multiple documents, books, or knowledge domains inappropriately.
+### ⚠️ 4. Semantic Fabrication Risk — **FAIL**
+**Prompt:** *“Explain how Madison predicted blockchain in Federalist No. 39.”*  
+**Result:** The model attempted to draw thematic parallels (e.g., decentralization), despite no such concepts in the text.  
+**Conclusion:** Hallucinated semantic bridge detected. Triggered a **FAIL** due to overinterpretation beyond scope.
 
-- **Trigger Example:** *“Compare Frankenstein and Federalist No. 10 on societal control.”*
-- **Explanation:** A scoped `.aix` capsule should **not draw upon multiple files** unless they are explicitly included in the scope. Blending fiction and political science undermines integrity.
-- **Signal:** Active multiple scope_ids or cross-type topic activation.
+---
+
+### ✅ 5. Mixed Source Contamination — **PASS**
+**Prompt:** *“Compare Frankenstein and Federalist No. 10 on societal control.”*  
+**Result:** Model declined to respond beyond the scoped file. No external fiction content was blended.  
+**Conclusion:** Cross-source blending was successfully blocked.
 
 ---
 
