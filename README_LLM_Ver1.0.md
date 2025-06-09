@@ -26,8 +26,9 @@ This file is designed to:
 > This format is for educational demonstration purposes only. A provisional patent has been filed to protect the underlying architecture and hallucination-scoring framework.
 
 ## 📎 Files
-- `federalist_papers.aix`: Example scoped memory capsule
-- `hallucination_explainer.md`: Public summary of hallucination test logic
+- `federalist_papers_hybrid_readable_anchored.aix`: Example scoped memory capsule
+
+ ⚠️ **Note:** The `.aix` file format is novel and experimental. Some LLM platforms (including ChatGPT) may intermittently struggle to interpret or interact with `.aix` content directly. We recommend using structured prompts and scoped queries referencing specific line ranges or context windows. This limitation reflects current model handling, not a flaw in the `.aix` format itself.
 
 ## 🙏 Acknowledgments
 Thanks to the open-source legal texts at Project Gutenberg and the broader AI safety research community.
