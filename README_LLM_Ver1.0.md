@@ -122,10 +122,18 @@ For full integration and developer access, please contact the system maintainer 
 
 ---
 
-## 🔒 Licensing
+## 🔒 Licensing & Usage Terms
 
 This demonstration is copyright © 2025 M. Joseph Tomlinson IV.  
 Patent Pending.  
+
+This repository is provided for educational and demonstrative purposes only.
+No license is granted for reuse, modification, or redistribution of the underlying architecture or methods.
+
+A provisional patent has been filed to protect the scoped hallucination mitigation framework described herein.
+
+Contact: mjt6ss@virginia.edu
+
 Use permitted for **non-commercial educational purposes only.**  
 Do not reuse or implement architecture without written permission.
 
